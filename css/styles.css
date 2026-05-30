@@ -260,3 +260,94 @@ kbd {
 .mini-board .cell {
   width: 14px; height: 14px;
 }
+
+/* =====================================================================
+   Mobile / small-screen overrides
+   ===================================================================== */
+@media (max-width: 700px) {
+  :root { --cell: 26px; }
+
+  body { -webkit-text-size-adjust: 100%; }
+
+  /* Stack header items, allow tabs to scroll horizontally if needed. */
+  .topbar {
+    flex-wrap: wrap;
+    gap: .5rem .75rem;
+    padding: .6rem .75rem;
+  }
+  .topbar h1 { font-size: 1rem; flex: 1 1 auto; }
+  .tabs {
+    order: 3;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 2px;
+  }
+  .tab {
+    padding: .45rem .7rem;
+    font-size: .85rem;
+    white-space: nowrap;
+  }
+  .meta {
+    margin-left: 0;
+    font-size: .78rem;
+    flex: 1 1 100%;
+    order: 2;
+  }
+
+  .view { padding: .75rem; }
+  .hint { font-size: .85rem; }
+
+  /* Editor: smaller cells, single column of cards so each piece has room. */
+  .gallery {
+    grid-template-columns: 1fr;
+    gap: .75rem;
+  }
+  .piece-card { padding: .6rem; }
+  .editor-toolbar textarea { min-width: 0; flex-basis: 100%; }
+
+  /* Solver: stack vertically, board on top, tray below; tray not sticky. */
+  .solver-layout {
+    grid-template-columns: 1fr;
+    gap: .75rem;
+  }
+  .board-wrap { order: 1; overflow-x: auto; }
+  .tray {
+    order: 2;
+    position: static;
+    max-height: none;
+    padding: .75rem;
+  }
+  .tray-pieces {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .controls button,
+  .editor-toolbar button,
+  .solve-toolbar button {
+    padding: .55rem .8rem;   /* bigger touch targets */
+    font-size: .9rem;
+  }
+
+  /* Board: allow horizontal scroll if it exceeds viewport. */
+  .board { gap: 1px; padding: 6px; }
+
+  /* Solutions: 2 per row max, no min cap. */
+  .solutions-grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: .6rem;
+  }
+  .mini-board .cell { width: 12px; height: 12px; }
+}
+
+/* Extra-tight phones */
+@media (max-width: 380px) {
+  :root { --cell: 22px; }
+  .tray-pieces { grid-template-columns: repeat(2, 1fr); }
+  .topbar h1 { font-size: .95rem; }
+}
+
+/* Pointer-coarse devices: no hover lift, bigger tap padding. */
+@media (pointer: coarse) {
+  .tray-piece:hover { transform: none; }
+  .editor-grid .cell { min-width: 26px; min-height: 26px; }
+}
