@@ -1,0 +1,8 @@
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Local dumps
+pentomino-pieces-*.json

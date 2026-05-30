@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Wooden Block Puzzle</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <h1>Wooden Block Puzzle</h1>
+      <nav class="tabs">
+        <button class="tab active" data-view="editor">1 · Piece Editor</button>
+        <button class="tab" data-view="inspector">2 · Inspector</button>
+        <button class="tab" data-view="solver">3 · Box Solver</button>
+        <button class="tab" data-view="solutions">4 · Auto-Solve</button>
+      </nav>
+      <div class="meta" id="meta"></div>
+    </header>
+
+    <!-- ============ Piece Editor ============ -->
+    <section id="view-editor" class="view active">
+      <p class="hint">
+        For every colored piece, click cells to toggle them on/off until the
+        shape matches the wooden block. Use the grid-size buttons to enlarge
+        the canvas if a piece needs more room. Changes are saved automatically
+        to your browser. The total cell count must equal
+        <strong id="target-cells-edit"></strong> for the pieces to pack the
+        <span id="board-dims-edit"></span> box exactly.
+      </p>
+      <div class="editor-toolbar">
+        <button id="btn-save-file">💾 Save to file…</button>
+        <button id="btn-load-file">📂 Load from file…</button>
+        <input id="file-input" type="file" accept="application/json,.json" hidden />
+        <button id="btn-export">Copy JSON</button>
+        <button id="btn-import">Paste JSON</button>
+        <button id="btn-reset-all" class="danger">Reset all pieces</button>
+        <textarea id="io-text" placeholder="Paste JSON here, then click 'Paste JSON' to import. Click 'Copy JSON' to dump current shapes here." rows="3"></textarea>
+      </div>
+      <p class="hint small" id="save-status"></p>
+      <div id="editor-gallery" class="gallery"></div>
+    </section>
+
+    <!-- ============ Inspector ============ -->
+    <section id="view-inspector" class="view">
+      <p class="hint">
+        Read-only preview of every saved shape with its trimmed bounding box
+        and cell count.
+      </p>
+      <div id="piece-gallery" class="gallery"></div>
+    </section>
+
+    <!-- ============ Solver ============ -->
+    <section id="view-solver" class="view">
+      <div class="solver-layout">
+        <aside class="tray">
+          <h2>Pieces</h2>
+          <p class="hint small">
+            Click a piece to pick it up.
+            <kbd>R</kbd> rotate · <kbd>F</kbd> flip · <kbd>Esc</kbd> drop.
+            Click the board to place; click a placed piece to lift it.
+          </p>
+          <div class="controls">
+            <button id="btn-rotate" disabled>Rotate (R)</button>
+            <button id="btn-flip" disabled>Flip (F)</button>
+            <button id="btn-cancel" disabled>Drop (Esc)</button>
+            <button id="btn-reset-board">Reset Board</button>
+          </div>
+          <div id="held-preview" class="held-preview empty" aria-live="polite"></div>
+          <div id="tray-pieces" class="tray-pieces"></div>
+        </aside>
+        <main class="board-wrap">
+          <h2>Box (<span id="board-dims"></span>)</h2>
+          <div id="board" class="board"></div>
+          <div id="status" class="status"></div>
+        </main>
+      </div>
+    </section>
+
+    <!-- ============ Auto-Solve ============ -->
+    <section id="view-solutions" class="view">
+      <div class="solve-toolbar">
+        <label>Max solutions:
+          <input id="max-solutions" type="number" min="1" max="1000" value="10" />
+        </label>
+        <button id="btn-solve">Find solutions</button>
+        <button id="btn-stop-solve" disabled>Stop</button>
+        <button id="btn-clear-solutions">Clear</button>
+        <span id="solve-status" class="muted-status"></span>
+      </div>
+      <div id="solutions-grid" class="solutions-grid"></div>
+    </section>
+
+    <script type="module" src="js/app.js"></script>
+  </body>
+</html>
