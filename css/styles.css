@@ -25,7 +25,7 @@ html, body {
 .topbar {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1rem;
   padding: 0.9rem 1.25rem;
   background: var(--panel);
   border-bottom: 1px solid #0006;
@@ -34,21 +34,83 @@ html, body {
   z-index: 5;
 }
 .topbar h1 { font-size: 1.15rem; margin: 0; }
-.tabs { display: flex; gap: .4rem; }
-.tab {
-  background: transparent;
-  border: 1px solid #4a525e;
-  color: var(--text);
-  padding: .4rem .9rem;
-  border-radius: 999px;
-  cursor: pointer;
-  font: inherit;
+.brand {
+  font-weight: 600; color: var(--text); text-decoration: none;
+  font-size: 1.05rem;
 }
-.tab.active { background: var(--accent); border-color: var(--accent); color: #08111c; }
-.meta { margin-left: auto; color: var(--muted); font-size: .9rem; }
+.brand:hover { color: var(--accent); }
+.crumbs { display: flex; gap: .45rem; align-items: center; flex-wrap: wrap; font-size: .9rem; }
+.crumbs a { color: var(--muted); text-decoration: none; }
+.crumbs a:hover { color: var(--accent); }
+.crumbs .sep { color: #4a525e; }
+.crumbs .current { color: var(--text); }
 
-.view { display: none; padding: 1.25rem; }
-.view.active { display: block; }
+.app { min-height: calc(100vh - 60px); }
+.view-pad { padding: 1.25rem; }
+
+/* ----- Home page ----- */
+.home-hero {
+  padding: 1.5rem 1.25rem .5rem;
+  max-width: 80ch;
+}
+.home-hero h1 { margin: 0 0 .25rem; font-size: 1.5rem; }
+.home-sub { color: var(--muted); margin: 0 0 .75rem; }
+.home-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+  padding: 1rem 1.25rem 2rem;
+}
+.puzzle-card {
+  display: flex; flex-direction: column;
+  background: var(--panel);
+  border: 1px solid #3a3f48;
+  border-radius: 12px;
+  padding: 1rem;
+  color: var(--text); text-decoration: none;
+  transition: transform .08s, border-color .08s, box-shadow .12s;
+}
+.puzzle-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  box-shadow: 0 6px 20px #0006;
+}
+.puzzle-preview {
+  display: flex; flex-wrap: wrap; gap: 6px; align-items: flex-end;
+  min-height: 80px;
+  padding: .5rem; margin-bottom: .6rem;
+  background: #1a1d22; border-radius: 8px;
+}
+.puzzle-meta h2 { margin: 0 0 .25rem; font-size: 1.05rem; }
+.puzzle-desc { color: var(--muted); margin: 0 0 .5rem; font-size: .88rem; line-height: 1.35; }
+.puzzle-stats { display: flex; flex-wrap: wrap; gap: .4rem .75rem; font-size: .78rem; color: var(--muted); }
+.puzzle-stats .tag {
+  background: #1e2a3a; color: #9fc8ff;
+  padding: 1px 8px; border-radius: 999px;
+}
+
+/* ----- Puzzle landing (mode picker) ----- */
+.puzzle-landing { max-width: 60rem; }
+.puzzle-landing h1 { font-size: 1.4rem; margin: 0 0 .25rem; }
+.mode-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: .75rem;
+  margin-top: 1rem;
+}
+.mode-card {
+  background: var(--panel);
+  border: 1px solid #3a3f48;
+  border-radius: 10px;
+  padding: 1rem;
+  color: var(--text); text-decoration: none;
+  transition: transform .08s, border-color .08s;
+}
+.mode-card:hover { transform: translateY(-2px); border-color: var(--accent); }
+.mode-card h3 { margin: 0 0 .25rem; font-size: 1rem; }
+.mode-card p { margin: 0; color: var(--muted); font-size: .85rem; }
+
+.inspector-header { margin-bottom: .5rem; }
 
 .hint { color: var(--muted); max-width: 80ch; }
 .hint.small { font-size: .85rem; }
@@ -269,34 +331,29 @@ kbd {
 
   body { -webkit-text-size-adjust: 100%; }
 
-  /* Stack header items, allow tabs to scroll horizontally if needed. */
+  /* Stack header items. */
   .topbar {
     flex-wrap: wrap;
-    gap: .5rem .75rem;
-    padding: .6rem .75rem;
+    gap: .4rem .75rem;
+    padding: .55rem .75rem;
   }
-  .topbar h1 { font-size: 1rem; flex: 1 1 auto; }
-  .tabs {
-    order: 3;
+  .brand { font-size: .95rem; }
+  .crumbs {
     width: 100%;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     padding-bottom: 2px;
-  }
-  .tab {
-    padding: .45rem .7rem;
-    font-size: .85rem;
-    white-space: nowrap;
-  }
-  .meta {
-    margin-left: 0;
-    font-size: .78rem;
-    flex: 1 1 100%;
-    order: 2;
+    font-size: .8rem;
   }
 
-  .view { padding: .75rem; }
+  .view-pad { padding: .75rem; }
   .hint { font-size: .85rem; }
+
+  /* Home cards: single column on phones. */
+  .home-grid { grid-template-columns: 1fr; padding: .75rem; gap: .75rem; }
+  .home-hero { padding: 1rem .75rem .25rem; }
+  .home-hero h1 { font-size: 1.25rem; }
+  .mode-grid { grid-template-columns: 1fr; }
 
   /* Editor: smaller cells, single column of cards so each piece has room. */
   .gallery {
